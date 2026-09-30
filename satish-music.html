@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satish Music</title>
+    <style>
+        /* Modern Dark Theme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        header {
+            background: linear-gradient(90deg, #1db954, #191414);
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* 🟢 LOGO AUR ANIMATION SETTINGS */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Image aur text ke beech ka gap */
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo-img {
+            width: 100px; /* Animation ko lamba (wide) karne ke liye */
+            height: 56px; /* Ekdum perfect rectangular shape ke liye */
+            border-radius: 6px; /* Halke se rounded corners */
+            object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .back-btn, .admin-icon, .add-song-btn, .logout-btn {
+            background: #282828;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.3s;
+            border: none;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .back-btn:hover, .admin-icon:hover, .add-song-btn:hover { background: #404040; }
+        
+        .add-song-btn { display: none; background: #1db954; }
+        .logout-btn { display: none; background: #d32f2f; }
+        .logout-btn:hover { background: #b71c1c; }
+        
+        body.admin-mode .add-song-btn { display: flex; }
+        body.admin-mode .logout-btn { display: flex; }
+        body.admin-mode .admin-icon { display: none; }
+
+        .header-buttons {
+            display: flex;
+        }
+
+        .container { padding: 20px; max-width: 1200px; margin: auto; }
+
+        .song-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-wrapper {
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-wrapper:hover { transform: scale(1.02); }
+
+        .delete-btn {
+            display: none;
+            width: 100%;
+            padding: 10px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .delete-btn:hover { background-color: #b71c1c; }
+        body.admin-mode .delete-btn { display: block; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 200; justify-content: center; align-items: center;
+        }
+
+        .modal-box {
+            background: #282828; padding: 25px; border-radius: 12px;
+            width: 90%; max-width: 400px; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .modal-box h3 { margin-top: 0; color: #1db954; }
+        
+        .modal-box input {
+            width: 100%; padding: 12px; margin: 15px 0; border-radius: 6px;
+            border: 1px solid #444; background: #333; color: white; box-sizing: border-box;
+        }
+
+        .modal-btns { display: flex; gap: 10px; justify-content: center; }
+        
+        .modal-btns button {
+            padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;
+            font-weight: bold; color: white;
+        }
+        .btn-confirm { background: #1db954; }
+        .btn-cancel { background: #555; }
+        .btn-confirm:hover { background: #179643; }
+        .btn-cancel:hover { background: #777; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- 🟢 LOGO KE SAATH ANIMATION -->
+        <div class="logo">
+            <img src="logo.gif" alt="Music Animation" class="logo-img">
+            Satish Music
+        </div>
+        
+        <div class="header-buttons">
+            <button class="back-btn" onclick="goBack()">⬅️ Back</button>
+            <button class="admin-icon" onclick="openLoginModal()">⚙️ Admin Login</button>
+            <button class="add-song-btn" onclick="openAddModal()">➕ Add New Song</button>
+            <button class="logout-btn" onclick="logoutAdmin()">🚪 Logout</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="song-list" id="songList"></div>
+    </div>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box">
+            <h3>Admin Login</h3>
+            <input type="password" id="adminPass" placeholder="Enter Password">
+            <div class="modal-btns">
+                <button class="btn-confirm" onclick="checkPassword()">Login</button>
+                <button class="btn-cancel" onclick="closeModals()">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addModal">
+        <div class="modal-box">
+            <h3>Add New Song</h3>
+            <input type="text" id="songInput" placeholder="Paste YouTube URL here...">
+            <div class="modal-btns">
+                <button class="btn-confirm" onclick="addNewSong()">Add Song</button>
+                <button class="btn-cancel" onclick="closeModals()">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXW7f2jvr2oSzxjQHHtpioqexQffLFLfE",
+            authDomain: "satish-music.firebaseapp.com",
+            databaseURL: "https://satish-music-default-rtdb.firebaseio.com",
+            projectId: "satish-music",
+            storageBucket: "satish-music.firebasestorage.app",
+            messagingSenderId: "261117357713",
+            appId: "1:261117357713:web:f79e2e2393ee33efec5930",
+            measurementId: "G-Y3WFMXMXHC"
+        };
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
+        const songsRef = db.ref('satish_music_songs');
+
+        let players = {}; 
+
+        function goBack() {
+            window.history.back(); 
+        }
+
+        function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
+        function openAddModal() { document.getElementById('addModal').style.display = 'flex'; }
+        function closeModals() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('addModal').style.display = 'none';
+            document.getElementById('adminPass').value = '';
+            document.getElementById('songInput').value = '';
+        }
+        
+        function logoutAdmin() {
+            document.body.classList.remove("admin-mode");
+            alert("Aap safely logout ho gaye hain!");
+        }
+
+        function checkPassword() {
+            let pass = document.getElementById('adminPass').value;
+            if (pass === "00") {
+                document.body.classList.add("admin-mode");
+                closeModals();
+            } else {
+                alert("Galat Password!");
+            }
+        }
+
+        function addNewSong() {
+            const inputVal = document.getElementById('songInput').value.trim();
+            if (inputVal === "") return alert("Pehle YouTube URL enter karein!");
+
+            let videoId = inputVal;
+            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+            const match = inputVal.match(regex);
+            
+            if (match && match[1]) { videoId = match[1]; } 
+            else if (inputVal.length !== 11) { return alert("Invalid URL!"); }
+
+            songsRef.push({ videoId: videoId, timestamp: Date.now() });
+            closeModals();
+        }
+
+        function deleteSongFromDB(dbKey) {
+            if(confirm("Kya aap sach me is song ko hatana chahte hain?")) {
+                songsRef.child(dbKey).remove();
+            }
+        }
+
+        let isYTReady = false;
+        function onYouTubeIframeAPIReady() {
+            isYTReady = true;
+            loadSongsFromFirebase();
+        }
+
+        function loadSongsFromFirebase() {
+            songsRef.on('child_added', (snapshot) => {
+                const data = snapshot.val();
+                const dbKey = snapshot.key;
+                if(isYTReady) {
+                    createVideoElement(data.videoId, dbKey);
+                }
+            });
+
+            songsRef.on('child_removed', (snapshot) => {
+                const dbKey = snapshot.key;
+                const wrapper = document.getElementById('wrapper-' + dbKey);
+                if (wrapper) wrapper.remove();
+                if (players[dbKey]) delete players[dbKey];
+            });
+        }
+
+        function createVideoElement(videoId, dbKey) {
+            const songList = document.getElementById('songList');
+
+            const wrapperDiv = document.createElement('div');
+            wrapperDiv.className = 'video-wrapper';
+            wrapperDiv.id = 'wrapper-' + dbKey;
+            
+            const playerDiv = document.createElement('div');
+            playerDiv.id = 'player-' + dbKey;
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.innerHTML = '🗑️ Remove Song';
+            deleteBtn.onclick = () => deleteSongFromDB(dbKey);
+
+            wrapperDiv.appendChild(playerDiv);
+            wrapperDiv.appendChild(deleteBtn);
+
+            songList.insertBefore(wrapperDiv, songList.firstChild);
+
+            const player = new YT.Player('player-' + dbKey, {
+                height: '220',
+                width: '100%',
+                videoId: videoId,
+                playerVars: { 'rel': 0 },
+                events: { 'onStateChange': onPlayerStateChange }
+            });
+
+            players[dbKey] = player;
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                Object.values(players).forEach(p => {
+                    if (p !== event.target && typeof p.pauseVideo === 'function') {
+                        p.pauseVideo();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

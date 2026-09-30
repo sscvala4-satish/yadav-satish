@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- GOOGLE VERIFICATION TAG -->
+    <meta name="google-site-verification" content="CI8r8upGLNqw9n7fDZE_hgsk8RdD3grDMgFq_js9m1Q" />
+    
+    <title>Yadav Satish</title>
+    <meta name="description" content="Yadav Satish. Listen to new and old top Bhojpuri songs.">
+    
+    <link rel="icon" href="https://i.ibb.co/chKqSsNF/1000003520-1.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/chKqSsNF/1000003520-1.jpg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Yadav Satish",
+      "url": "https://tumhari-website-ka-link.com",
+      "image": "https://i.ibb.co/chKqSsNF/1000003520-1.jpg",
+      "jobTitle": "Web Developer & Yadav Satish"
+    }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <style>
+        :root { --blood: #ff0000; --bg: #000000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background: var(--bg); color: #fff; overflow-x: hidden; }
+
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 10px 2%; background: #000; border-bottom: 2px solid var(--blood);
+            position: sticky; top: 0; z-index: 1000; gap: 5px;
+        }
+        
+        .left-part { display: flex; align-items: center; gap: 8px; white-space: nowrap; flex-shrink: 0; }
+        .menu-btn { font-size: 24px; color: var(--blood); cursor: pointer; }
+        
+        .head-img { 
+            width: 45px; height: 45px; border-radius: 50%; object-fit: cover; 
+            border: 2px solid var(--blood); 
+            animation: floatImage 2s infinite alternate ease-in-out;
+        }
+        
+        @keyframes floatImage {
+            0% { transform: translateY(0px) scale(1) rotate(0deg); box-shadow: 0 0 5px var(--blood), 0 0 10px var(--blood); }
+            100% { transform: translateY(-4px) scale(1.05) rotate(3deg); box-shadow: 0 0 15px var(--blood), 0 0 25px #ff5555, 0 0 35px var(--blood); }
+        }
+
+        .logo { 
+            font-size: 16px; font-weight: 900; cursor: pointer; letter-spacing: 1px;
+            animation: text3DShine 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes text3DShine {
+            0% { transform: translateY(0px) scale(1); color: #ffcccc; text-shadow: 1px 1px 0 #880000, 2px 2px 0 #550000, 0 0 10px var(--blood); }
+            100% { transform: translateY(-3px) scale(1.05); color: #ffffff; text-shadow: 2px 2px 0 #aa0000, 4px 4px 0 #770000, 6px 6px 0 #440000, 0 0 20px var(--blood), 0 0 30px #ff4444; }
+        }
+
+        .search-area { display: flex; gap: 4px; justify-content: flex-end; flex-grow: 1; }
+        input { width: 100%; max-width: 105px; padding: 8px 6px; border-radius: 20px; border: 1px solid var(--blood); background: #111; color: #fff; outline: none; font-size: 12px; }
+        .btn-s { padding: 7px 10px; background: var(--blood); border: none; color: #fff; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; }
+
+        .container { padding: 15px 5%; }
+        #watch-view { display: none; }
+
+        .sidebar {
+            height: 100%; width: 0; position: fixed; z-index: 2000;
+            top: 0; left: 0; background-color: #111; overflow-x: hidden;
+            transition: 0.3s; padding-top: 60px; border-right: 2px solid var(--blood);
+        }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 18px; display: flex; align-items: center; color: white; transition: 0.2s; border-bottom: 1px solid #333; }
+        .sidebar a:hover { color: var(--blood); background: #000; }
+        .sidebar .closebtn { position: absolute; top: 0; right: 15px; font-size: 36px; border: none; display: block; }
+        
+        .menu-icon { 
+            width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 15px; 
+            border: 2px solid var(--blood); animation: menuFloat3D 1.8s infinite alternate ease-in-out;
+        }
+
+        @keyframes menuFloat3D {
+            0% { transform: translateY(0px) scale(1) rotate(0deg); box-shadow: 0 5px 10px rgba(255, 0, 0, 0.4), 0 0 5px var(--blood); }
+            100% { transform: translateY(-4px) scale(1.1) rotate(10deg); box-shadow: 0 15px 20px rgba(255, 0, 0, 0.1), 0 0 15px var(--blood), 0 0 25px #ff4444; }
+        }
+
+        .player-box { background: #000; border: 2px solid var(--blood); border-radius: 12px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 0 15px var(--blood); }
+        .iframe-wrap { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; }
+        .iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        .controls { padding: 15px; background: #0a0a0a; text-align: center; }
+        .v-title { font-size: 16px; font-weight: bold; color: #fff; margin-bottom: 10px; }
+        
+        .btn-group { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .btn-action { padding: 10px 18px; border: 1px solid var(--blood); background: #000; color: #fff; cursor: pointer; border-radius: 8px; font-weight: bold; }
+        .btn-home { background: var(--blood); width: 100%; margin-top: 15px; border: none; padding: 12px; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
+
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .card { background: #111; border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #222; transition: 0.2s; }
+        .card:hover { border-color: var(--blood); transform: scale(1.03); }
+        .card img { width: 100%; height: 100px; object-fit: cover; }
+        .card-info { padding: 8px; font-size: 11px; height: 40px; overflow: hidden; color: #ccc; }
+        
+        .loading-text { text-align: center; color: var(--blood); font-weight: bold; padding: 20px; font-size: 16px; display: none; }
+    </style>
+</head>
+<body>
+
+<div id="sideMenu" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="image.html">
+        <img src="https://i.ibb.co/7xJKzy5z/30855.jpg" alt="30855" border="0" class="menu-icon"> Image
+    </a>
+    <a href="satish-music.html">
+        <img src="https://i.ibb.co/G4PYhVm3/1000003519-1.jpg" alt="1000003519-1" border="0" class="menu-icon"> Satish Music
+    </a>
+</div>
+
+<header>
+    <div class="left-part">
+        <div class="menu-btn" onclick="openNav()">☰</div>
+        <a href="https://ibb.co/HD49r693" target="_blank">
+            <img class="head-img" src="https://i.ibb.co/chKqSsNF/1000003520-1.jpg" alt="1000003520-1" border="0">
+        </a>
+        <div class="logo" onclick="goHome()">YADAV SATISH</div>
+    </div>
+    
+    <div class="search-area">
+        <input type="text" id="srch" placeholder="Search songs...">
+        <button class="btn-s" onclick="search()">🔍</button>
+        <button class="btn-s" onclick="startVoice()">🎤</button>
+    </div>
+</header>
+
+<div class="container">
+    <div id="home-view">
+        <h3 id="gridTitle" style="margin-bottom:15px; color:var(--blood); font-size: 18px;">TOP BHOJPURI DHAMAKA</h3>
+        <div class="video-grid" id="mainGrid"></div>
+        <div id="mainLoader" class="loading-text">Loading more songs...</div>
+    </div>
+
+    <div id="watch-view">
+        <div class="player-box">
+            <div class="iframe-wrap" id="playerParent">
+                <div id="player"></div>
+            </div>
+            <div class="controls">
+                <div class="v-title" id="vTitle">Now Playing...</div>
+                <div class="btn-group">
+                    <button class="btn-action" onclick="player.playVideo()">PLAY</button>
+                    <button class="btn-action" onclick="player.pauseVideo()">PAUSE</button>
+                    <button class="btn-action" onclick="next()">NEXT</button>
+                </div>
+                <button class="btn-home" onclick="goHome()">🏠 BACK TO HOME</button>
+            </div>
+        </div>
+        
+        <h3 style="margin-bottom:15px; color:var(--blood); font-size: 16px;">MIX SONGS FOR YOU</h3>
+        <div class="video-grid" id="sideGrid"></div>
+        <div id="sideLoader" class="loading-text">Loading more songs...</div>
+    </div>
+</div>
+
+<script>
+    const KEY = 'AIzaSyAiy3YkvJAec66NMIr2ulZToesvphZ4UMs'; 
+    let player, currentList = [], currentId = "";
+    let apiReady = false;
+    let isLoading = false;
+    let currentActiveGrid = "mainGrid"; 
+    let seenVideos = new Set(); 
+
+    let tokens = { mainGrid: "", sideGrid: "" };
+    let queries = { mainGrid: "Bhojpuri Hits 2026", sideGrid: "" };
+
+    function openNav() { document.getElementById("sideMenu").style.width = "250px"; }
+    function closeNav() { document.getElementById("sideMenu").style.width = "0"; }
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '100%', width: '100%',
+            playerVars: { 'autoplay': 1, 'controls': 1, 'rel': 0, 'modestbranding': 1, 'vq': 'auto' },
+            events: {
+                'onReady': () => { apiReady = true; },
+                'onStateChange': (e) => { if(e.data == YT.PlayerState.ENDED) next(); }
+            }
+        });
+    }
+
+    async function load(q, grid, append = false) {
+        if(isLoading) return;
+        isLoading = true;
+        
+        currentActiveGrid = grid;
+        queries[grid] = q; 
+        
+        const gridDiv = document.getElementById(grid);
+        const loader = document.getElementById(grid === 'mainGrid' ? 'mainLoader' : 'sideLoader');
+        
+        if(!append) {
+            gridDiv.innerHTML = '';
+            tokens[grid] = ""; 
+            if(grid === 'mainGrid') {
+                currentList = [];
+                seenVideos.clear();
+            }
+        }
+        
+        loader.style.display = 'block';
+
+        let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=${encodeURIComponent(q)}&type=video&videoDuration=medium&key=${KEY}`;
+        if(tokens[grid]) url += `&pageToken=${tokens[grid]}`; 
+        
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            
+            if(data.items) {
+                tokens[grid] = data.nextPageToken || ""; 
+                
+                data.items.forEach(i => {
+                    if (!i.id || !i.id.videoId) return; 
+                    if (i.id.videoId === currentId) return; 
+                    
+                    if(grid === 'mainGrid') {
+                        if (seenVideos.has(i.id.videoId)) return; 
+                        seenVideos.add(i.id.videoId);
+                        currentList.push(i);
+                    }
+                    
+                    gridDiv.innerHTML += `
+                    <div class="card" onclick="play('${i.id.videoId}','${i.snippet.title.replace(/'/g,"")}')">
+                        <img src="${i.snippet.thumbnails.medium.url}">
+                        <div class="card-info"><b>${i.snippet.title}</b></div>
+                    </div>`;
+                });
+            } else {
+                tokens[grid] = ""; 
+            }
+        } catch(e) { 
+            if(!append) gridDiv.innerHTML = '<p style="color:var(--blood)">Check Internet Connection!</p>'; 
+        }
+        
+        loader.style.display = 'none';
+        isLoading = false;
+    }
+
+    function play(id, t) {
+        currentId = id;
+        document.getElementById('home-view').style.display = 'none';
+        document.getElementById('watch-view').style.display = 'block';
+        document.getElementById('vTitle').innerText = t;
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        if (apiReady && player && player.loadVideoById) {
+            player.loadVideoById({ videoId: id, suggestedQuality: 'default' });
+        } else {
+            document.getElementById('playerParent').innerHTML = `<iframe id="player" src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; fullscreen"></iframe>`;
+        }
+        
+        let mixQueries = ["Top Bhojpuri Songs 2026", "Bhojpuri DJ Remix", "Pawan Singh New Hits", "Khesari Lal Superhit", "Shilpi Raj Trending", "Bhojpuri New Mashup", "Pramod Premi Hit Songs"];
+        let randomQuery = mixQueries[Math.floor(Math.random() * mixQueries.length)];
+        
+        load(randomQuery, 'sideGrid', false);
+    }
+
+    function search() {
+        let q = document.getElementById('srch').value;
+        if(q) {
+            document.getElementById('gridTitle').innerText = "Search: " + q;
+            load(q, 'mainGrid', false);
+            goHome();
+        }
+    }
+
+    function startVoice() {
+        const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!Rec) return alert("Mic Problem");
+        const r = new Rec();
+        r.onresult = (e) => {
+            document.getElementById('srch').value = e.results[0][0].transcript;
+            search();
+        };
+        r.start();
+    }
+
+    function goHome() {
+        if(player && player.stopVideo) player.stopVideo();
+        document.getElementById('watch-view').style.display = 'none';
+        document.getElementById('home-view').style.display = 'block';
+        
+        currentActiveGrid = "mainGrid";
+    }
+
+    function next() {
+        if (currentList.length > 0) {
+            let idx = Math.floor(Math.random() * currentList.length);
+            play(currentList[idx].id.videoId, currentList[idx].snippet.title);
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        if (scrollTop + clientHeight >= scrollHeight - 300) {
+            if (tokens[currentActiveGrid] && !isLoading) {
+                load(queries[currentActiveGrid], currentActiveGrid, true);
+            }
+        }
+    });
+
+    window.onload = () => load('Bhojpuri Hits 2026', 'mainGrid', false);
+</script>
+</body>
+</html>
